@@ -1,3 +1,6 @@
+<?php
+$directory = "./" . $_SERVER['PATH_INFO'];
+?>
 <!doctype html>
 <html>
 <head>
@@ -45,7 +48,7 @@
 	 $atext="Show";}
 
 	 // Opens directory
-	 $myDirectory=opendir(".");
+	 $myDirectory=opendir($directory);
 
 	// Gets each entry
 	while($entryName=readdir($myDirectory)) {
