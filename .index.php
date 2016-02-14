@@ -1,51 +1,35 @@
 <?php
+
+// Adds pretty filesizes
+function pretty_filesize($file) {
+	$size=filesize($file);
+	if($size<1024){$size=$size." Bytes";}
+	elseif(($size<1048576)&&($size>1023)){$size=round($size/1024, 1)." KB";}
+	elseif(($size<1073741824)&&($size>1048575)){$size=round($size/1048576, 1)." MB";}
+	else{$size=round($size/1073741824, 1)." GB";}
+	return $size;
+}
+
 $directory = "./" . $_SERVER['PATH_INFO'];
 ?>
 <!doctype html>
-<html>
-<head>
-   <meta charset="UTF-8">
-   <link rel="shortcut icon" href="./.favicon.ico">
-   <title>Directory Contents</title>
+	<link rel="stylesheet" href="./.style.css">
+	<script src="./.sorttable.js"></script>
 
-   <link rel="stylesheet" href="./.style.css">
-   <script src="./.sorttable.js"></script>
-</head>
-
-<body>
 <div id="container">
 	<h1>Directory Contents</h1>
 
 	<table class="sortable">
-	    <thead>
-		<tr>
-			<th>Filename</th>
-			<th>Type</th>
-			<th>Size</th>
-			<th>Date Modified</th>
-		</tr>
-	    </thead>
-	    <tbody><?php
+		<th>Filename
+		<th>Type
+		<th>Size
+		<th>Date Modified
+<?php
 
-	// Adds pretty filesizes
-	function pretty_filesize($file) {
-		$size=filesize($file);
-		if($size<1024){$size=$size." Bytes";}
-		elseif(($size<1048576)&&($size>1023)){$size=round($size/1024, 1)." KB";}
-		elseif(($size<1073741824)&&($size>1048575)){$size=round($size/1048576, 1)." MB";}
-		else{$size=round($size/1073741824, 1)." GB";}
-		return $size;
-	}
 
- 	// Checks to see if veiwing hidden files is enabled
-	if($_SERVER['QUERY_STRING']=="hidden")
-	{$hide="";
-	 $ahref="./";
-	 $atext="Hide";}
-	else
-	{$hide=".";
+	$hide=".";
 	 $ahref="./?hidden";
-	 $atext="Show";}
+	 $atext="Show";
 
 	 // Opens directory
 	 $myDirectory=opendir($directory);
@@ -148,19 +132,11 @@ $directory = "./" . $_SERVER['PATH_INFO'];
 	// Output
 	 echo("
 		<tr class='$class'>
-			<td><a href='./$namehref'$favicon class='name'>$name</a></td>
-			<td><a href='./$namehref'>$extn</a></td>
-			<td sorttable_customkey='$sizekey'><a href='./$namehref'>$size</a></td>
-			<td sorttable_customkey='$timekey'><a href='./$namehref'>$modtime</a></td>
+			<td><a href='./$namehref'$favicon class='name'>$name
+			<td><a href='./$namehref'>$extn
+			<td sorttable_customkey='$sizekey'><a href='./$namehref'>$size
+			<td sorttable_customkey='$timekey'><a href='./$namehref'>$modtime
 		</tr>");
 	   }
 	}
-	?>
-
-	    </tbody>
-	</table>
-
-	<h2><?php echo("<a href='$ahref'>$atext hidden files</a>"); ?></h2>
-</div>
-</body>
-</html>
+?>
