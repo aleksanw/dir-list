@@ -60,7 +60,7 @@
 
 	foreach ($contents as $entry) {
 		// Hide entries starting with '.', ls-style.
-		// Except for '..' - thats useful.
+		// Except for '..' - that's useful.
 		if ($entry[0] === '.' && $entry !== '..')
 			continue;
 
